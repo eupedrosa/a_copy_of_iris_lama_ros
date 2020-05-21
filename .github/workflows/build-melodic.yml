@@ -2,9 +2,9 @@ name: Build Melodic
 
 on:
   push:
-    branches: [melodic-devel]
+    branches: [master, melodic-devel]
   pull_request:
-    branches: [melodic-devel]
+    branches: [master, melodic-devel]
 
 jobs:
   build:
