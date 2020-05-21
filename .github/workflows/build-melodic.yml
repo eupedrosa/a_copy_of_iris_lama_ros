@@ -7,19 +7,16 @@ on:
     branches: [master, melodic-devel]
 
 jobs:
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-18.04
+  industrial_ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        env:
+          - {ROS_DISTRO: melodic, ROS_REPO: testing}
+          - {ROS_DISTRO: melodic, ROS_REPO: main}
+    runs-on: ubuntu-latest
     steps:
-      # azure ubuntu repo can be flaky so add an alternate source
-    - run: sed -e 's/azure.archive.ubuntu.com/us.archive.ubuntu.com/g' -e t -e d /etc/apt/sources.list | sudo tee /etc/apt/sources.list.d/nonazure.list
-    - name: Setup ROS
-      uses: ros-tooling/setup-ros@0.0.20
-      with:
-        required-ros-distributions: melodic
-    - name: Build ROS
-      uses: ros-tooling/action-ros-ci@0.0.16
-      with:
-        package-name: iris_lama_ros
-        source-ros-binary-installation: melodic
+      - uses: actions/checkout@v1
+      - uses: 'ros-industrial/industrial_ci@master'
+        env: ${{matrix.env}}
 
