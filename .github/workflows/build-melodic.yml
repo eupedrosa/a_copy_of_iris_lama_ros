@@ -1,22 +1,13 @@
 name: Build Melodic
 
-on:
-  push:
-    branches: [master, melodic-devel]
-  pull_request:
-    branches: [master, melodic-devel]
+on: [push, pull_request]
 
 jobs:
-  industrial_ci:
+  build:
     strategy:
       fail-fast: false
-      matrix:
-        env:
-          - {ROS_DISTRO: melodic, ROS_REPO: testing}
-          #- {ROS_DISTRO: melodic, ROS_REPO: main}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - uses: 'ros-industrial/industrial_ci@master'
-        env: ${{matrix.env}}
-
+      - uses: 'ros-industrial/industrial_ci@0.10.0'
+        env: {ROS_DISTRO: melodic, ROS_REPO: testing}
