@@ -21,4 +21,5 @@ jobs:
       uses: ros-tooling/action-ros-ci@0.0.16
       with:
         package-name: iris_lama_ros
+        source-ros-binary-installation: melodic
 
