@@ -11,14 +11,15 @@ jobs:
       - uses: actions/checkout@v1
         with:
           path: ws/src/iris_lama_ros
-      - name: clone_dependencies
-        run: |
-          cd ..
-          git clone https://github.com/iris-ua/iris_lama
       - uses: betwo/github-setup-catkin@v1.1.1
         with:
           ros-version: 'melodic'
           workspace: '$GITHUB_WORKSPACE'
+      - name: clone_dependencies
+        run: |
+          cd ..
+          git clone https://github.com/iris-ua/iris_lama
+
       - run: |
           cd ../../
           catkin_make_isolated
