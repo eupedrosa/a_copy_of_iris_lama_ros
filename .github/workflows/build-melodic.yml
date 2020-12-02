@@ -8,6 +8,13 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: 'ros-industrial/industrial_ci@0.10.0'
-        env: {ROS_DISTRO: melodic, ROS_REPO: testing}
+      - uses: actions/checkout@v1
+      - name: clone_dependencies
+        run: |
+          cd ..
+          git clone https://github.com/iris-ua/iris_lama
+      - uses: betwo/github-setup-catkin@v1.1.1
+        with:
+          ros-version: 'melodic'
+          workspace: '$GITHUB_WORKSPACE'
+      - run: catkin_make_isolated
