@@ -20,6 +20,4 @@ jobs:
           cd ..
           git clone https://github.com/iris-ua/iris_lama
 
-      - run: |
-          cd ../../
-          catkin_make_isolated
+      - run: catkin_make_isolated
